@@ -11,15 +11,31 @@ extension ProjectContextExtension on BuildContext {
 }
 
 extension EdgeInsetsExtension on BuildContext {
-  EdgeInsetsGeometry get pagesEdgeInsets =>
-      EdgeInsets.symmetric(horizontal: this.dynamicWidth(24));
+  EdgeInsetsGeometry get pagesEdgeInsets => EdgeInsets.only(
+      left: this.dynamicWidth(24),
+      right: this.dynamicWidth(24),
+      bottom: this.dynamicHeight(24));
 
   EdgeInsetsGeometry get menuItemEdgeInsets =>
       EdgeInsets.all(this.dynamicHeight(10));
+
+  EdgeInsetsGeometry get selectFoodsEdgeInsets =>
+      EdgeInsets.symmetric(horizontal: this.dynamicWidth(20));
+
+  EdgeInsetsGeometry get lowEdgeInsets =>
+      EdgeInsets.all(this.dynamicHeight(5));
 }
 
 extension SizedBoxExtension on BuildContext {
   SizedBox get lowSizedBoxHeight => SizedBox(
+    height: this.dynamicHeight(5),
+  );
+
+  SizedBox get mediumSizedBoxHeight => SizedBox(
+    height: this.dynamicHeight(15),
+  );
+
+  SizedBox get largeSizedBoxHeight => SizedBox(
         height: this.dynamicHeight(25),
       );
 }

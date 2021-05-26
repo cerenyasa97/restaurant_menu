@@ -27,12 +27,13 @@ class ProjectText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _factor = MediaQuery.of(context).textScaleFactor;
     return AutoSizeText(
       text,
       style: GoogleFonts.tinos(
             textStyle: TextStyle(
               color: color ?? Colors.black,
-              fontSize: textSize,
+              fontSize: (textSize ?? 15)* _factor,
             ),
         fontWeight: weight ?? FontWeight.normal
           ),

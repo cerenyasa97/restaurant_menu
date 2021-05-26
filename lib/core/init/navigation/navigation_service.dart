@@ -9,18 +9,22 @@ class NavigationService {
 
   NavigationService._internal();
 
-  static dynamic generatePageRoute(Pages page, {var variable}) {
+  static dynamic generatePageRoute(Pages page, {var variable, String title}) {
     switch (page) {
       case Pages.MAIN_MENU:
         return MainMenuScreen();
+      case Pages.SUB_MENU:
+        return SubMenuScreen(menuElement: variable, title: title,);
+      case Pages.SELECT_FOOD:
+        return SelectFoodsScreen(menuItem: variable, title: title,);
     }
   }
 
   static PageRouteBuilder<dynamic> generateSlidePageRouteBuilder(Pages page,
-      {var variable}) {
+      {var variable, String title}) {
     return PageRouteBuilder(
         pageBuilder: (context, animation, secondaryAnimation) =>
-            generatePageRoute(page, variable: variable),
+            generatePageRoute(page, variable: variable, title: title),
         transitionDuration: Duration(milliseconds: 300),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           return SlideTransition(
@@ -31,14 +35,16 @@ class NavigationService {
         });
   }
 
-  void navigatorPush(BuildContext context, Pages page, {var variable}) {
+  void navigatorPush(BuildContext context, Pages page, {var variable, String title}) {
     Navigator.of(context)
-        .push(generateSlidePageRouteBuilder(page, variable: variable));
+        .push(generateSlidePageRouteBuilder(page, variable: variable, title: title));
   }
 
   void navigatorPushReplacement(BuildContext context, Pages page,
-      {var variable}) {
+      {var variable, String title}) {
     Navigator.of(context).pushReplacement(
-        generateSlidePageRouteBuilder(page, variable: variable));
+        generateSlidePageRouteBuilder(page, variable: variable, title: title));
   }
+
+  void navigatorPop(BuildContext context) => Navigator.pop(context);
 }

@@ -20,6 +20,7 @@ class _MainMenuScreenState extends MenuBaseState<MainMenuScreen> {
           return menuProvider.menuList == null
               ? Center(child: CustomProgressIndicator())
               : GridView.count(
+                  clipBehavior: Clip.none,
                   crossAxisCount: 2,
                   mainAxisSpacing: context.dynamicHeight(24),
                   crossAxisSpacing: context.dynamicWidth(24),

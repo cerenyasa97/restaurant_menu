@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:restaurant_menu/core/components/text/custom_rich_text.dart';
+import 'package:restaurant_menu/core/components/text/project_text.dart';
 import 'package:restaurant_menu/core/constants/enums/pages/pages.dart';
-import 'package:restaurant_menu/core/constants/text/text_constants.dart';
 import 'package:restaurant_menu/core/init/navigation/navigation_service.dart';
 import 'package:restaurant_menu/model/menu_model.dart';
 import 'package:restaurant_menu/core/components/image/cliprrect_image.dart';
@@ -16,16 +15,32 @@ class MenuItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        //NavigationService.instance.navigatorPush(context, Pages.MAIN_MENU);
+        NavigationService.instance.navigatorPush(context,
+            menuItem.items != null ? Pages.SUB_MENU : Pages.SELECT_FOOD,
+            variable: menuItem.items != null ? menuItem.items : menuItem,
+            title: menuItem.name);
       },
       child: CircularCornerContainer(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            ClipRRectImage(
-              imagePath: "assets/" + menuItem.image,
+            Flexible(
+              flex: 3,
+              child: Align(
+                alignment: Alignment.topCenter,
+                child: ClipRRectImage(
+                  imagePath: "assets/" + menuItem.image,
+                ),
+              ),
             ),
-            CustomRichText(text: menuItem.name)
+            Flexible(
+              child: ProjectText(
+                text: menuItem.name,
+                align: TextAlign.center,
+                textSize: 25,
+                weight: FontWeight.w600,
+              ),
+              flex: 1,
+            ),
           ],
         ),
       ),

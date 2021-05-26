@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:restaurant_menu/core/constants/enums/pages/pages.dart';
 import 'package:restaurant_menu/core/components/image/project_image.dart';
 import 'package:restaurant_menu/core/constants/image/image_constants.dart';
+import 'package:restaurant_menu/notifier/menu_notifier.dart';
+import 'package:provider/provider.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key key}) : super(key: key);
@@ -33,8 +35,7 @@ class _SplashScreenState extends State<SplashScreen> {
             imagePath: ImageConstants.SPLASH_BACKGROUND,
             fit: BoxFit.cover,
           ),
-          Align(
-            alignment: Alignment.centerLeft,
+          Positioned(
             child: Wrap(
               direction: Axis.vertical,
               children: [
@@ -42,14 +43,14 @@ class _SplashScreenState extends State<SplashScreen> {
                   quarterTurns: -1,
                   child: ProjectText(
                     text: TextConstants.SPLASH_TITLE,
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline1
-                        .copyWith(color: Colors.white, fontSize: 85),
+                    textSize: 80,
+                    color: Colors.white,
                   ),
                 ),
               ],
             ),
+            bottom: context.dynamicHeight(40),
+            left: context.dynamicWidth(35),
           )
         ],
       ),
@@ -57,9 +58,12 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void _startTimer() {
+    context.read<MenuProvider>().fetchMenu();
     Timer(
         Duration(seconds: AppConstants.SPLASH_SHOWTIME),
         () => NavigationService.instance
-            .navigatorPushReplacement(context, Pages.MAIN_MENU));
+            .navigatorPushReplacement(
+            context,
+            Pages.MAIN_MENU,));
   }
 }

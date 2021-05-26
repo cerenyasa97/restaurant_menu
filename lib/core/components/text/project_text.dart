@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ProjectText extends StatelessWidget {
   final String text;
@@ -26,15 +27,14 @@ class ProjectText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _curScaleFactor = MediaQuery.of(context).textScaleFactor;
     return AutoSizeText(
       text,
-      style: style ??
-          TextStyle(
-            color: color ?? Colors.black,
-            fontSize: 16 * _curScaleFactor,
-            fontWeight: weight ?? FontWeight.w400,
-            fontFamily: family ?? "Roboto",
+      style: GoogleFonts.tinos(
+            textStyle: TextStyle(
+              color: color ?? Colors.black,
+              fontSize: textSize,
+            ),
+        fontWeight: weight ?? FontWeight.normal
           ),
       textAlign: align ?? TextAlign.start,
       maxLines: maxLines ?? 5,

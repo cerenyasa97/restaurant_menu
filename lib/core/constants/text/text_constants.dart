@@ -16,4 +16,5 @@ class TextConstants{
   static const PAYMENT_TITLE = "Sepet";
   static const PRICE_LABEL = "Fiyat";
   static const PAY_BUTTON = "Siparişi Tamamla";
+  static const ADD_BUTTON = "Yeni Ekle";
 }

@@ -5,6 +5,8 @@ import 'package:restaurant_menu/core/extensions/context/project_context_extensio
 import 'package:restaurant_menu/core/constants/methods/scroll_widget_behavior.dart';
 import 'package:restaurant_menu/core/init/navigation/navigation_service.dart';
 import 'package:restaurant_menu/core/init/navigation/pages_import.dart';
+import 'package:provider/provider.dart';
+import 'package:restaurant_menu/notifier/menu_notifier.dart';
 
 abstract class MenuBaseView extends StatefulWidget {
   const MenuBaseView({Key key}) : super(key: key);
@@ -26,6 +28,7 @@ abstract class MenuBaseState<Page extends MenuBaseView> extends State<Page> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         ProjectText(
@@ -43,12 +46,37 @@ abstract class MenuBaseState<Page extends MenuBaseView> extends State<Page> {
                         ),
                       ],
                     ),
-                    FloatingActionButton(
-                      backgroundColor: Colors.deepPurple,
-                      onPressed: () => NavigationService.instance.navigatorPush(context, Pages.PAYMENT),
-                      child: Icon(
-                        Icons.shopping_basket,
-                      ),
+                    Stack(
+                      children: [
+                        FloatingActionButton(
+                          backgroundColor: Colors.deepPurple,
+                          onPressed: () => NavigationService.instance
+                              .navigatorPush(context, Pages.PAYMENT),
+                          child: Icon(
+                            Icons.shopping_basket,
+                          ),
+                        ),
+                        Visibility(
+                          visible: context
+                              .watch<MenuProvider>()
+                              .orderList
+                              .length > 0,
+                          child: Positioned(
+                              right: 0,
+                              child: CircleAvatar(
+                                radius: context.dynamicWidth(10),
+                                backgroundColor: Colors.white,
+                                child: ProjectText(
+                                  text: context
+                                      .watch<MenuProvider>()
+                                      .orderList
+                                      .length
+                                      .toString(),
+                                  color: Colors.deepPurple,
+                                ),
+                              )),
+                        )
+                      ],
                     )
                   ],
                 ),

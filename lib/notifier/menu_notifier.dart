@@ -51,16 +51,17 @@ class MenuProvider extends ChangeNotifier {
       orderList.removeAt(elementIndex);
       orderList.insert(elementIndex, itemList[index]);
     }
-    print(price);
-    print(orderList);
+    notifyListeners();
+  }
+
+  addSingleItem(Item item){
+    orderList.add(item);
     notifyListeners();
   }
 
   clearOrderedList() {
     orderList.clear();
     price = 0;
-    print(orderList);
-    print(price);
     notifyListeners();
   }
 }

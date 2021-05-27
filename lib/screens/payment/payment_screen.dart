@@ -15,19 +15,41 @@ class PaymentScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton.extended(
-        backgroundColor: Colors.deepPurple,
-        onPressed: () {
-          context.read<MenuProvider>().clearOrderedList();
-          NavigationService.instance.navigatorPushAndRemoveUntil(context, Pages.MAIN_MENU);
-        },
-        label: ProjectText(
-          text: TextConstants.PAY_BUTTON,
-          color: Colors.white,
-          weight: FontWeight.w600,
-          textSize: 18,
-        ),
-        icon: Icon(Icons.payment),
+      floatingActionButton: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          FloatingActionButton.extended(
+            backgroundColor: Colors.deepPurple,
+            onPressed: () {
+              NavigationService.instance
+                  .navigatorPushAndRemoveUntil(context, Pages.MAIN_MENU);
+            },
+            label: ProjectText(
+              text: TextConstants.ADD_BUTTON,
+              color: Colors.white,
+              weight: FontWeight.w600,
+              textSize: 18,
+            ),
+            icon: Icon(Icons.add),
+          ),
+          context.mediumSizedBoxHeight,
+          FloatingActionButton.extended(
+            backgroundColor: Colors.deepPurple,
+            onPressed: () {
+              context.read<MenuProvider>().clearOrderedList();
+              NavigationService.instance
+                  .navigatorPushAndRemoveUntil(context, Pages.MAIN_MENU);
+            },
+            label: ProjectText(
+              text: TextConstants.PAY_BUTTON,
+              color: Colors.white,
+              weight: FontWeight.w600,
+              textSize: 18,
+            ),
+            icon: Icon(Icons.payment),
+          )
+        ],
       ),
       backgroundColor: Colors.grey.shade900,
       body: Padding(
@@ -57,7 +79,9 @@ class PaymentScreen extends StatelessWidget {
                               textSize: 20,
                             ),
                             trailing: ProjectText(
-                              text: item.price == null ? "-" : item.price.toString() + " TL",
+                              text: item.price == null
+                                  ? "-"
+                                  : item.price.toString() + " TL",
                               color: Colors.white38,
                               textSize: 16,
                             ),
@@ -74,7 +98,8 @@ class PaymentScreen extends StatelessWidget {
                       ),
                     ),
                     trailing: ProjectText(
-                      text: menuProvider.price.toStringAsFixed(2) + " TL" ?? "-",
+                      text:
+                          menuProvider.price.toStringAsFixed(2) + " TL" ?? "-",
                       color: Colors.white38,
                       textSize: 16,
                     )),

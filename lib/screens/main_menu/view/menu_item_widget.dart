@@ -18,13 +18,25 @@ class MenuItemWidget extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         if (menuItem.items == null) {
-          context.read<MenuProvider>().price =
-              double.parse(menuItem.price.replaceFirst(RegExp(","), "."));
+          double lastPrice;
+          if(menuItem.price is String) lastPrice = double.parse(menuItem.price.replaceFirst(RegExp(","), "."));
+          else if(menuItem.price is int) lastPrice = menuItem.price.toDouble();
+          else lastPrice = menuItem.price;
+          context.read<MenuProvider>().price = lastPrice;
+              ;
         }
-        NavigationService.instance.navigatorPush(context,
-            menuItem.items != null ? Pages.SUB_MENU : Pages.SELECT_FOOD,
-            variable: menuItem.items != null ? menuItem.items : menuItem,
-            title: menuItem.name);
+        print("********************************************\n" +
+            menuItem.toString());
+        if (menuItem.items != null)
+          NavigationService.instance.navigatorPush(context, Pages.SUB_MENU,
+              variable: menuItem.items, title: menuItem.name);
+        else if (menuItem.items == null && menuItem.subMenus != null)
+          NavigationService.instance.navigatorPush(context, Pages.SELECT_FOOD,
+              variable: menuItem, title: menuItem.name);
+        else {
+          context.read<MenuProvider>().addSingleItem(menuItem);
+          NavigationService.instance.navigatorPush(context, Pages.PAYMENT);
+        }
       },
       child: CircularCornerContainer(
         child: Column(

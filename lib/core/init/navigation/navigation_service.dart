@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:restaurant_menu/notifier/menu_notifier.dart';
+import 'package:restaurant_menu/screens/payment/payment_screen.dart';
 import 'pages_import.dart';
 
 class NavigationService {
@@ -17,6 +20,8 @@ class NavigationService {
         return SubMenuScreen(menuElement: variable, title: title,);
       case Pages.SELECT_FOOD:
         return SelectFoodsScreen(menuItem: variable, title: title,);
+      case Pages.PAYMENT:
+        return PaymentScreen();
     }
   }
 
@@ -44,6 +49,12 @@ class NavigationService {
       {var variable, String title}) {
     Navigator.of(context).pushReplacement(
         generateSlidePageRouteBuilder(page, variable: variable, title: title));
+  }
+
+  void navigatorPushAndRemoveUntil(BuildContext context, Pages page,
+      {var variable, String title}) {
+    Navigator.of(context).pushAndRemoveUntil(
+        generateSlidePageRouteBuilder(page, variable: variable, title: title), (route) => false);
   }
 
   void navigatorPop(BuildContext context) => Navigator.pop(context);

@@ -10,6 +10,4 @@ class AppConstants{
   static const double SELECT_FOOD_CORNER_RADIUS = 30;
 
   static const double SUB_MENU_BLANKS = 20;
-
-  static const String ADD_BUTTON_LABEL = "Ekle";
 }

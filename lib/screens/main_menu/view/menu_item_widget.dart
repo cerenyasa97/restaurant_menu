@@ -5,6 +5,8 @@ import 'package:restaurant_menu/core/init/navigation/navigation_service.dart';
 import 'package:restaurant_menu/model/menu_model.dart';
 import 'package:restaurant_menu/core/components/image/cliprrect_image.dart';
 import 'package:restaurant_menu/core/components/container/circular_corner_container.dart';
+import 'package:restaurant_menu/notifier/menu_notifier.dart';
+import 'package:provider/provider.dart';
 
 class MenuItemWidget extends StatelessWidget {
   final Item menuItem;
@@ -15,6 +17,10 @@ class MenuItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
+        if (menuItem.items == null) {
+          context.read<MenuProvider>().price =
+              double.parse(menuItem.price.replaceFirst(RegExp(","), "."));
+        }
         NavigationService.instance.navigatorPush(context,
             menuItem.items != null ? Pages.SUB_MENU : Pages.SELECT_FOOD,
             variable: menuItem.items != null ? menuItem.items : menuItem,

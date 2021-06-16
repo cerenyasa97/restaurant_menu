@@ -1,4 +1,4 @@
-# task_manager
+# restaurant_menu
 
 A new Flutter application.
 
